@@ -1,6 +1,6 @@
 import  Express  from "express";
 export const router = Express.Router()
-import { getCnaNews, getLtnNews , getPtsNews , getNewsInit } from "./getNews.js";
+import { getNewsInit } from "./getNews.js";
 import { verifyUser } from "../../database/database.js";
 
 const newsInit = getNewsInit()
