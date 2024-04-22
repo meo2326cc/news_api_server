@@ -34,7 +34,7 @@ export  async function handleLtnRoute(req, res) {
 
 }
 
-export  async function handlePtsRoute(req, res) {
+export  async function handleCtsRoute(req, res) {
 
   if (!req.headers.authorization) {
       res.status(401).send("未通過認證");
@@ -55,4 +55,4 @@ export  async function handlePtsRoute(req, res) {
 
 router.get("/cna", handleCnaRoute );
 router.get("/ltn", handleLtnRoute );
-router.get("/pts", handlePtsRoute );
+router.get("/cts", handleCtsRoute );

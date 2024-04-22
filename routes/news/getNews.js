@@ -1,18 +1,18 @@
 import axios from "axios";
 import 'dotenv/config';
-import { handleCnaData , handleLtnData , handlePtsData  }from "./handleData.js";
+import { handleCnaData , handleLtnData , handleCtsData  }from "./handleData.js";
 
 
 export function getNewsInit () {
 
     let cna = getCnaNews()
     let ltn = getLtnNews()
-    let pts = getPtsNews()
+    let pts = getCtsNews()
 
     setInterval( ()=>{ 
     cna = getCnaNews()
     ltn = getLtnNews() 
-    pts = getPtsNews()
+    pts = getCtsNews()
     console.log('refresh')
      } , 3600000 )
 
@@ -40,7 +40,7 @@ export async function getCnaNews () {
 
 export async function getLtnNews () {
     try{
-        const response = await axios.get(process.env.NEWS_LINK_PTS)
+        const response = await axios.get(process.env.NEWS_LINK_LTN)
 
         return handleLtnData(response.data)
     }catch(error){
@@ -50,11 +50,11 @@ export async function getLtnNews () {
 
 }
 
-export async function getPtsNews () {
+export async function getCtsNews () {
     try{
-        const response = await axios.get(process.env.NEWS_LINK_LTN)
+        const response = await axios.get(process.env.NEWS_LINK_CTS)
 
-        return handlePtsData(response.data)
+        return handleCtsData(response.data)
     }catch(error){
         console.log( 'pts' ,error.response?.status , error.response?.statusText )
         throw { error:'取得資料發生錯誤' }
