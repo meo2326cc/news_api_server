@@ -5,14 +5,14 @@ import { handleCnaData , handleLtnData , handleCtsData  }from "./handleData.js";
 
 export function getNewsInit () {
 
-    let cna = getCnaNews()
-    let ltn = getLtnNews()
-    let pts = getCtsNews()
+    let cna = getNews( 'cna' , handleCnaData , process.env.NEWS_LINK_CNA )
+    let ltn = getNews( 'ltn' , handleLtnData , process.env.NEWS_LINK_LTN )
+    let cts = getNews( 'cts' , handleCtsData , process.env.NEWS_LINK_CTS )
 
     setInterval( ()=>{ 
-    cna = getCnaNews()
-    ltn = getLtnNews() 
-    pts = getCtsNews()
+    cna = getNews( 'cna' , handleCnaData , process.env.NEWS_LINK_CNA )
+    ltn = getNews( 'ltn' , handleLtnData , process.env.NEWS_LINK_LTN ) 
+    cts = getNews( 'cts' , handleCtsData , process.env.NEWS_LINK_CTS )
     console.log('refresh')
      } , 3600000 )
 
@@ -20,45 +20,21 @@ export function getNewsInit () {
         switch (type){
             case 'cna' : return cna
             case 'ltn' : return ltn
-            case 'pts' : return pts
+            case 'cts' : return cts
             default : undefined
         }
     }
 }
 
-export async function getCnaNews () {
+export async function getNews ( newsStr , dataHandlerFn , env ) {
     try{
-        const response = await axios.get(process.env.NEWS_LINK_CNA)
+        const response = await axios.get( env )
 
-        return handleCnaData(response.data)
+        return dataHandlerFn(response.data)
     }catch(error){
-        console.log( 'cna' ,error.response?.status , error.response?.statusText )
+        console.log( newsStr ,error.response?.status , error.response?.statusText )
         return { error:'取得資料發生錯誤' }
     }
-
 }
 
-export async function getLtnNews () {
-    try{
-        const response = await axios.get(process.env.NEWS_LINK_LTN)
-
-        return handleLtnData(response.data)
-    }catch(error){
-        console.log( 'ltn' , error.response?.status , error.response?.statusText )
-        return { error:'取得資料發生錯誤' }
-    }
-
-}
-
-export async function getCtsNews () {
-    try{
-        const response = await axios.get(process.env.NEWS_LINK_CTS)
-
-        return handleCtsData(response.data)
-    }catch(error){
-        console.log( 'pts' ,error.response?.status , error.response?.statusText )
-        throw { error:'取得資料發生錯誤' }
-    }
-
-}
 

@@ -5,54 +5,21 @@ import { verifyUser } from "../../database/database.js";
 
 const newsInit = getNewsInit()
 
-export async function handleCnaRoute (req, res) {
-    if (!req.headers.authorization) {
-      res.status(401).send("未通過認證");
-    } else if (await verifyUser(req.headers.authorization)) {
 
-      res.set("Content-Type", "application/json"); 
-      res.status(200).send( await newsInit('cna') )
+export async function handleNewsRoute( req , res ) {
 
-    } else {
-      res.status(401).send("未通過認證");
-    }
+  if (!req.headers.authorization) {
+    res.status(401).send("未通過認證");
+  } else if (await verifyUser(req.headers.authorization)) {
+    const route = req.route.path
+    res.set("Content-Type", "application/json"); 
+    res.status(200).send( await newsInit( route.split("/")[1] ) )
+  } else {
+    res.status(401).send("未通過認證");
   }
-  
-export  async function handleLtnRoute(req, res) {
-
-  if (!req.headers.authorization) {
-      res.status(401).send("未通過認證");
-    } else if (await verifyUser(req.headers.authorization)) {
-
-      res.set("Content-Type", "application/json"); 
-      res.status(200).send( await newsInit('ltn') )
-
-    } else {
-      res.status(401).send("未通過認證");
-    }
-
 
 }
 
-export  async function handleCtsRoute(req, res) {
-
-  if (!req.headers.authorization) {
-      res.status(401).send("未通過認證");
-    } else if (await verifyUser(req.headers.authorization)) {
-      // new Promise((solve) => {
-      //     solve(getPtsNews());
-      //   }).then((data) => {
-      //     res.set("Content-Type", "application/json");
-      //     res.status(200).send(data);
-      //   });
-      res.set("Content-Type", "application/json"); 
-      res.status(200).send( await newsInit('pts') )
-    } else {
-      res.status(401).send("未通過認證");
-    }
-
-}
-
-router.get("/cna", handleCnaRoute );
-router.get("/ltn", handleLtnRoute );
-router.get("/cts", handleCtsRoute );
+router.get("/cna", handleNewsRoute );
+router.get("/ltn", handleNewsRoute );
+router.get("/cts", handleNewsRoute );
