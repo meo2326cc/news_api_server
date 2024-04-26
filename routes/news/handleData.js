@@ -13,5 +13,5 @@ export  function handleLtnData( data ) {
 
 export  function handleCtsData ( data ) {
     const $ = cheerio.load( data )
-    return $('.newslist-container').find('a').map( (item , el )=>{ return {"title":$(el).attr('title'), "url": $(el).attr('href') , "date" : $(el).find('h3 .newstime').text() } } ).toArray()
+    return $('.newslist-container').find('a').map( (item , el )=>{ return {"title":$(el).attr('title'), "url": $(el).attr('href') , "date" : $(el).find('h3 .newstime').text() } } ).toArray().slice(0,16)
 }
