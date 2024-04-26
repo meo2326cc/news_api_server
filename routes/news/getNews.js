@@ -1,19 +1,21 @@
 import axios from "axios";
 import 'dotenv/config';
 import { handleCnaData , handleLtnData , handleCtsData  }from "./handleData.js";
+import handleKeywords from "../../jieba/jiebatest.js";
 
 
-export function getNewsInit () {
+export async function getNewsInit () {
 
-    let cna = getNews( 'cna' , handleCnaData , process.env.NEWS_LINK_CNA )
-    let ltn = getNews( 'ltn' , handleLtnData , process.env.NEWS_LINK_LTN )
-    let cts = getNews( 'cts' , handleCtsData , process.env.NEWS_LINK_CTS )
+    let cna = await getNews( 'cna' , handleCnaData , process.env.NEWS_LINK_CNA )
+    let ltn = await getNews( 'ltn' , handleLtnData , process.env.NEWS_LINK_LTN )
+    let cts = await getNews( 'cts' , handleCtsData , process.env.NEWS_LINK_CTS )
+    let allnews = handleKeywords([ ...cna , ...ltn , ...cts  ]) 
 
-    setInterval( ()=>{ 
-    cna = getNews( 'cna' , handleCnaData , process.env.NEWS_LINK_CNA )
-    ltn = getNews( 'ltn' , handleLtnData , process.env.NEWS_LINK_LTN ) 
-    cts = getNews( 'cts' , handleCtsData , process.env.NEWS_LINK_CTS )
-    console.log('refresh')
+    setInterval( async ()=>{ 
+    cna = await getNews( 'cna' , handleCnaData , process.env.NEWS_LINK_CNA )
+    ltn = await getNews( 'ltn' , handleLtnData , process.env.NEWS_LINK_LTN ) 
+    cts = await getNews( 'cts' , handleCtsData , process.env.NEWS_LINK_CTS )
+    allnews = handleKeywords([ ...cna , ...ltn , ...cts  ]) 
      } , 3600000 )
 
     return async function( type ) {
@@ -21,7 +23,7 @@ export function getNewsInit () {
             case 'cna' : return cna
             case 'ltn' : return ltn
             case 'cts' : return cts
-            default : undefined
+            case 'keywords' : return allnews
         }
     }
 }

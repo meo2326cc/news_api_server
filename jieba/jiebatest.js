@@ -43,10 +43,7 @@ export default function handleKeywords( newsData ) {
   });
 
 
-  //const sortedWordCount = Object.entries(wordCount).sort((a, b) => b[1] - a[1]);
   const sortedWordCount = Object.values(wordCount).sort((a , b ) => b.totalCount - a.totalCount  )
-  //log
-  console.log(sortedWordCount.slice(0, 10));
 
   return sortedWordCount.slice(0,10)
 
