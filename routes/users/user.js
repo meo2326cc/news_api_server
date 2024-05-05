@@ -13,6 +13,12 @@ export async function handleRegistration (req , res) {
         res.status(400).send('資料不得為空')
     }else if( !(req?.body.username && req?.body.password) ){
         res.status(400).send('請填寫欄位')
+    }else if ( !(/^[a-z0-9]+$/i.test( req?.body.username) )  ){
+        res.status(400).send('不得使用英文字母或數字以外的輸入法')
+    } else if( req?.body.password.length < 4 ){
+        res.status(400).send('密碼長度不得小於4')
+    }else if ( req?.body.username.length < 4) {
+        res.status(400).send('帳號長度不得小於4')
     }else{
     //     hash( req.body.password , saltRounds, async function(err, hash) {
     //     await register({"username":req.body.username , "password":hash } , res )
