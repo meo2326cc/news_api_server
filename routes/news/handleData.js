@@ -20,16 +20,26 @@ export function handleLtnData(data) {
   return $(".list")
     .find("li")
     .map((item, el) => {
+      const dateFormat = $(el).find(".time").text()
+      if( dateFormat.length <= 5 ){
+        return {
+          title: $(el).find("h3").text(),
+          url: $(el).find("a").attr("href"),
+          date: `${date.getFullYear()}/${
+            date.getMonth() + 1 < 10
+              ? "0" + (date.getMonth() + 1)
+              : date.getMonth() + 1
+          }/${date.getDate() < 10 ? "0" + date.getDate() : date.getDate() } ${dateFormat}`,
+        };
+      }else {
       return {
         title: $(el).find("h3").text(),
         url: $(el).find("a").attr("href"),
-        // date: `${date.getFullYear()}/${
-        //   date.getMonth() + 1 < 10
-        //     ? "0" + (date.getMonth() + 1)
-        //     : date.getMonth() + 1
-        // }/${date.getDate()} ${$(el).find(".time").text()}`,
-        date: $(el).find(".time").text()
-      };
+        date: dateFormat
+      };        
+      }
+
+
     })
     .toArray();
 }
