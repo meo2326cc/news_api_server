@@ -20,6 +20,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.0",
     "nodejieba": "^2.6.0",
+    "puppeteer": "^22.8.0",
+    "puppeteer-core": "^22.8.0",
     "uid": "^2.0.2"
   },
   "devDependencies": {

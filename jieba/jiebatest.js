@@ -21,11 +21,12 @@ export default function handleKeywords( newsData ) {
 
       let newsType ;
 
-      const dataStructure = { keyWord:'' , totalCount : 1 , cna : 0 , ltn : 0 , cts : 0 }
+      const dataStructure = { keyWord:'' , totalCount : 1 , cna : 0 , ltn : 0 , cts : 0 , cht: 0  }
 
       if ( news.url.includes('news.cts.com.tw') ) {newsType = 'cts'}
       if ( news.url.includes('news.ltn.com.tw') ) {newsType = 'ltn'}
       if ( news.url.includes('news/aipl') ) {newsType = 'cna'}
+      if ( news.url.includes('/realtimenews/') ) {newsType = 'cht'}
       
 
         if (wordCount[word]) {

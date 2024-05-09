@@ -58,3 +58,13 @@ export function handleCtsData(data) {
     .toArray()
     .slice(0, 16);
 }
+
+export function handleChtData(data) {
+  const $ = cheerio.load(data);
+  return $(' .vertical-list').find('li').map( (item , el)=>{
+    return { title: $(el).find('h3 > a').text() ,
+            url: $(el).find('a').attr("href") ,
+            date: $(el).find('time').attr("datetime")       
+  }
+  } ).toArray()
+}
