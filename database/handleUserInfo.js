@@ -1,6 +1,4 @@
 import { Schema, createConnection } from 'mongoose';
-import { jwtSign , jwtVerify } from '../routes/users/jsonwebtoken.js';
-import { compare } from 'bcrypt';
 import { uid } from 'uid';
 import 'dotenv/config'
 
