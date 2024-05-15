@@ -9,9 +9,15 @@ import { verifyUser } from "../database/database";
         expect(verifyUser(testToken)).resolves.toHaveProperty('username', 'joe10' )
     })
 
-    
+    // error token
     test( 'fail: return false' , async()=>{
-        expect(verifyUser('testToken')).resolves.toBeFalsy();
+        expect(verifyUser('error')).resolves.toBeFalsy();
     } )
+
+    //undefined
+    test( 'fail: return false' , async()=>{
+        expect(verifyUser( undefined )).resolves.toBeFalsy();
+    } )
+
 } )
 
