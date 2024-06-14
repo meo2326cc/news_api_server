@@ -26,4 +26,5 @@ router.get("/cna", handleNewsRoute );
 router.get("/ltn", handleNewsRoute );
 router.get("/cts", handleNewsRoute );
 router.get("/cht", handleNewsRoute );
+router.get("/pts", handleNewsRoute );
 router.get("/keywords" ,handleNewsRoute )

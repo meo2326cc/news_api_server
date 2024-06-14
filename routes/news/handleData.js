@@ -68,3 +68,13 @@ export function handleChtData(data) {
   }
   } ).toArray()
 }
+
+export function handlePtsData(data) {
+  const $ = cheerio.load(data);
+  return $('h2').map( (item , el)=>{
+    return { title: $(el).text() ,
+            url: $(el).find('a').attr('href') ,
+            date: $('time').attr("datetime")       
+  }
+  } ).toArray()
+}
